@@ -11,26 +11,26 @@ class TokenController {
       });
     }
 
-    const usuario = await Usuario.findOne({ where: { email } });
+    const user = await Usuario.findOne({ where: { email } });
 
-    if (!usuario) {
+    if (!user) {
       return res.status(401).json({
         errors: ['E-mail/Senha Inválido(s)!'],
       });
     }
 
-    if (!(await usuario.passwordIsValid(password))) {
+    if (!(await user.passwordIsValid(password))) {
       return res.status(401).json({
         errors: ['E-mail/Senha Inválido(s)!'],
       });
     }
 
-    const { id } = usuario;
+    const { id } = user;
     const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
 
-    return res.json({ token });
+    return res.json({ token, user: { nome: user.nome, id, email } });
   }
 }
 
