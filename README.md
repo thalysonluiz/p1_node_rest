@@ -25,7 +25,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - CSS
 - JavaScript
 - NodeJS
-- EJS
 - Express
 - MySQL
 
